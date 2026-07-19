@@ -1,4 +1,4 @@
-# 🏎️ cachy-tweaks
+# 🏎️ cachysfn-tweaks
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CachyOS](https://img.shields.io/badge/OS-CachyOS%20%2F%20Arch%20Linux-blue.svg)](https://cachyos.org/)
