@@ -61,11 +61,18 @@ if [ ${#INSTALLED_CHOICES[@]} -eq 0 ]; then
 fi
 
 echo -e "\n${YELLOW}👉 Select the applications you wish to UNINSTALL (debloat):${RESET}"
-echo -e "${CYAN}(Use [Space] to toggle, [Enter] to confirm) ${RESET}\n"
+echo -e "${CYAN}(Use [Space] or [x] to toggle, [a] for all, [Enter] to confirm) ${RESET}\n"
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-.}")" && pwd)"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+CHOOSE_BIN="${PROJECT_DIR}/bin/cachy-choose"
+if [ ! -x "$CHOOSE_BIN" ]; then
+    CHOOSE_BIN="gum choose"
+fi
 
 # Run gum select
-CHOICES=$(printf "%s\n" "${INSTALLED_CHOICES[@]}" | gum choose --no-limit \
-    --header="⚠️  ¡IMPORTANTE! Selecciona con [ESPACIO] las aplicaciones a ELIMINAR, luego [ENTER] para confirmar:")
+CHOICES=$(printf "%s\n" "${INSTALLED_CHOICES[@]}" | $CHOOSE_BIN --no-limit \
+    --header="⚠️  ¡IMPORTANTE! Selecciona con [ESPACIO] o [x] las aplicaciones a ELIMINAR, [a] para todas, luego [ENTER] para confirmar:")
 
 if [ -z "$CHOICES" ]; then
     log_warn "No packages were selected for removal. Exiting debloat module."

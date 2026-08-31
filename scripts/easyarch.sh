@@ -181,8 +181,16 @@ else
     
     log_info "Interactive mode triggered."
     echo -e "\n${YELLOW}👉 Select the applications from Easyarch you want to install:${RESET}"
-    CHOICES=$(gum choose --no-limit \
-        --header="⚠️  ¡IMPORTANTE! Presiona la barra [ESPACIO] para marcar cada aplicación (aparecerá una ✓), luego [ENTER] para iniciar:" \
+    
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-.}")" && pwd)"
+    PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+    CHOOSE_BIN="${PROJECT_DIR}/bin/cachy-choose"
+    if [ ! -x "$CHOOSE_BIN" ]; then
+        CHOOSE_BIN="gum choose"
+    fi
+
+    CHOICES=$($CHOOSE_BIN --no-limit \
+        --header="⚠️  ¡IMPORTANTE! Presiona la barra [ESPACIO] o [x] para marcar cada aplicación (aparecerá una ✓), [a] para todas, luego [ENTER] para iniciar:" \
         "📱 [1] Telegram Desktop" \
         "🎮 [2] Wine & Gaming Core Pack (Wine-CachyOS, ProtonUp, Protontricks, GNOME GameMode)" \
         "💻 [3] GitHub Desktop client" \

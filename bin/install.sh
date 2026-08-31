@@ -138,14 +138,19 @@ fi
 
 # Present the beautiful selection menu
 echo -e "\n${YELLOW}👉 Select the optimization modules you wish to apply:${RESET}"
-echo -e "${CYAN}(Use [Space] to toggle, [Enter] to confirm) ${RESET}\n"
+echo -e "${CYAN}(Use [Space] or [x] to toggle, [a] for all, [Enter] to confirm) ${RESET}\n"
+
+CHOOSE_BIN="${PROJECT_DIR}/bin/cachy-choose"
+if [ ! -x "$CHOOSE_BIN" ]; then
+    CHOOSE_BIN="gum choose"
+fi
 
 if [ -n "${CHOICES_MOCK:-}" ]; then
     log_info "Mock mode active. Selected choices: ${CHOICES_MOCK}"
     CHOICES="$CHOICES_MOCK"
 else
-    CHOICES=$(gum choose --no-limit \
-        --header="⚠️  ¡IMPORTANTE! Presiona la barra [ESPACIO] para marcar cada opción (aparecerá una ✓), luego [ENTER] para iniciar:" \
+    CHOICES=$($CHOOSE_BIN --no-limit \
+        --header="⚠️  ¡IMPORTANTE! Presiona la barra [ESPACIO] o [x] para marcar cada opción (aparecerá una ✓), [a] para todas, luego [ENTER] para iniciar:" \
         "⚡ [1] NVIDIA Wayland & Electron HW Acceleration" \
         "🌐 [2] System Latency & Connection sysctl rules" \
         "📂 [3] Linux File Watcher expansions (inotify)" \
