@@ -129,7 +129,7 @@ if [ ! -f "$UDISKS2_CONF" ]; then
 # nodev:  blocks raw device node access from the drive
 [defaults]
 vfat_defaults=uid=$UID,gid=$GID,shortname=mixed,utf8=1,showexec,flush,noexec,nosuid,nodev
-exfat_defaults=noexec,nosuid,nodev
+exfat_defaults=uid=$UID,gid=$GID,noexec,nosuid,nodev
 ext2_defaults=noexec,nosuid,nodev
 ext3_defaults=noexec,nosuid,nodev
 ext4_defaults=noexec,nosuid,nodev
